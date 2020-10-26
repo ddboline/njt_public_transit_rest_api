@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+    rest_api:
+        image: rest_api
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - '.:/usr/src/app'
+        ports:
+            - 5000:5000
+        environment:
+            - DATABASE_URL=postgresql://postgres:${PASSWORD}@rest_db:5432/rest_db
+        depends_on:
+            - rest_db
+
+    rest_db:
+        image: rest_db
+        build:
+            context: ./db
+            dockerfile: Dockerfile
+        expose:
+            - 5432
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=${PASSWORD}
