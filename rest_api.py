@@ -6,16 +6,16 @@ from departures import connect_to_db, get_closest_stop_id, get_upcoming_departur
 def get_app():
     app = Flask(__name__)
 
-    @app.route("/schedules", methods=["GET"])
+    @app.route("/schedules", methods=["POST"])
     def schedules():
-        origin_station_id = int(request.args.get("origin_station_id"))
+        payload = request.json
 
-        coordinates = request.args.getlist("coordinates")
-        print(coordinates)
+        origin_station_id = int(payload["origin_station_id"])
+        coordinates = payload["coordinates"]
         latitude = float(coordinates[0])
         longitude = float(coordinates[1])
 
-        destination_station_id = int(request.args.get("destination_station_id"))
+        destination_station_id = int(payload["destination_station_id"])
 
         con = connect_to_db()
 
@@ -48,7 +48,7 @@ def get_app():
         for stop_id in stops:
             for (date, start_time, end_time) in zip(dates, start_times, end_times):
                 for stop_type in "rail", "bus":
-                    for (arrival_time, name, route_type, stop_name) in get_upcoming_departures(
+                    for (arrival_time, _, route_type, stop_name) in get_upcoming_departures(
                         con, stop_type, start_time, end_time, stop_id, date
                     ):
                         if route_type == 0:
@@ -77,7 +77,7 @@ def get_app():
         #     ]
         # }
 
-        return json.jsonify(departures)
+        return json.jsonify({'next_schedules': departures})
 
     return app
 

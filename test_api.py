@@ -14,11 +14,12 @@ class BaseTestCase(TestCase):
 
 class TestRestApi(BaseTestCase):
     def test_schedules(self):
-        parameters = {
+        payload = {
             "origin_station_id": 2,
-            "coordinates": {"latitude": 41.2, "longitude": 63.4},
+            "coordinates": [40.762027, -74.2958287],
             "destination_station_id": 2,
         }
-        response = self.client.get(f"/schedules?{urlencode(parameters)}")
+        response = self.client.post("/schedules", json=payload)
         self.assertEqual(response.status_code, 200)
+        print(response.json)
         self.assertEqual(len(response.json["next_schedules"]), 3)
