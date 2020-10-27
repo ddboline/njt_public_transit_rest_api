@@ -13,7 +13,6 @@ services:
             - 5000:5000
         environment:
             - DATABASE_URL=postgresql://postgres:${PASSWORD}@rest_db:5432/rest_db
-            - PASSWORD=mvOIktXvbhMYXxBc
         depends_on:
             - rest_db
 

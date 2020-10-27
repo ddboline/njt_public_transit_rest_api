@@ -6,11 +6,8 @@ cd $TMPDIR
 
 mkdir -p rail_data/ bus_data/
 
-wget https://www.njtransit.com/rail_data.zip
-unzip -x rail_data.zip -d rail_data/
-
-wget https://www.njtransit.com/bus_data.zip
-unzip -x bus_data.zip -d bus_data/
+unzip -x /rest_api/data/rail_data.zip -d rail_data/
+unzip -x /rest_api/data/bus_data.zip -d bus_data/
 
 for TYPE in rail bus;
 do

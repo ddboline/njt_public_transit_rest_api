@@ -18,6 +18,7 @@ wget https://www.njtransit.com/bus_data.zip -O bus_data.zip
 
 You'll need to install [docker-compose](https://docs.docker.com/compose/), you can then bring up the application and import the transit data using the following:
 ```bash
+echo PASSWORD=password > .env
 docker-compose up -d --build
 docker-compose run rest_api /rest_api/import_data.sh
 ```
