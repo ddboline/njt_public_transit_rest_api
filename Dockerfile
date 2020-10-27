@@ -20,4 +20,4 @@ COPY ./data/ /rest_api/data/
 COPY . /rest_api
 
 CMD ["./entrypoint.sh"]
-ENV PASSWORD mvOIktXvbhMYXxBc
+
