@@ -31,7 +31,9 @@ docker-compose run rest_api /rest_api/run_tests.sh
 
 To use the api, send a POST containing at minimum the following fields:
 ```
-origin_station_id
+origin_station_id: this is and integer should add query to search for integer based on a string query or set of coordinates
+destination_station_id: also an integer
+coordinates: a list with two values, latitude and longitude
 ```
 
 
