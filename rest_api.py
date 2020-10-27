@@ -17,7 +17,7 @@ def schedules():
         departures = cache[token]
 
         cache[token] = departures[10:]
-        return json.jsonify({"next_schedules": departures[:10], 'token': token})
+        return json.jsonify({"next_schedules": departures[:10], 'token': token.decode()})
 
     payload = request.json
     origin_station_id = int(payload["origin_station_id"])
@@ -90,7 +90,7 @@ def schedules():
     key = base64.b64encode(str(hash(json.dumps(payload))).encode())[:-2]
     cache[key] = departures[10:]
 
-    return json.jsonify({"next_schedules": departures[:10], 'token': key})
+    return json.jsonify({"next_schedules": departures[:10], 'token': key.decode()})
 
 
 if __name__ == "__main__":
